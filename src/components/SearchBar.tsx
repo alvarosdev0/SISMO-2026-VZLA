@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useRef, useEffect } from 'react'
+import { useCallback, useRef, useEffect, useState } from 'react'
 import type { Filters } from '@/lib/types'
 
 interface SearchBarProps {
@@ -10,17 +10,34 @@ interface SearchBarProps {
 
 export function SearchBar({ filters, setFilters }: SearchBarProps) {
   const inputRef = useRef<HTMLInputElement>(null)
+  const [localQuery, setLocalQuery] = useState(filters.query)
+  const debounceRef = useRef<ReturnType<typeof setTimeout>>(null)
 
   useEffect(() => {
     inputRef.current?.focus()
   }, [])
 
+  useEffect(() => {
+    setLocalQuery(filters.query)
+  }, [filters.query])
+
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setFilters((prev) => ({ ...prev, query: e.target.value }))
+      const value = e.target.value
+      setLocalQuery(value)
+      if (debounceRef.current) clearTimeout(debounceRef.current)
+      debounceRef.current = setTimeout(() => {
+        setFilters((prev) => ({ ...prev, query: value }))
+      }, 300)
     },
     [setFilters]
   )
+
+  useEffect(() => {
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current)
+    }
+  }, [])
 
   const handleClear = useCallback(() => {
     setFilters((prev) => ({ ...prev, query: '' }))
@@ -37,7 +54,7 @@ export function SearchBar({ filters, setFilters }: SearchBarProps) {
       <input
         ref={inputRef}
         type="text"
-        value={filters.query}
+        value={localQuery}
         onChange={handleChange}
         placeholder="Buscar por nombre o apellido..."
         className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base"

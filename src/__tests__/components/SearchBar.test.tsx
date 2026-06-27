@@ -18,7 +18,8 @@ describe('SearchBar', () => {
     expect(screen.getByPlaceholderText('Buscar por nombre o apellido...')).toBeInTheDocument()
   })
 
-  it('should call setFilters when typing', () => {
+  it('should call setFilters when typing (debounced)', () => {
+    jest.useFakeTimers()
     const setFilters = jest.fn()
     render(
       <SearchBar filters={defaultFilters} setFilters={setFilters} />
@@ -26,8 +27,11 @@ describe('SearchBar', () => {
 
     const input = screen.getByPlaceholderText('Buscar por nombre o apellido...')
     fireEvent.change(input, { target: { value: 'MARÍA' } })
+    jest.advanceTimersByTime(300)
 
     expect(setFilters).toHaveBeenCalled()
+
+    jest.useRealTimers()
   })
 
   it('should show clear button when query is not empty', () => {

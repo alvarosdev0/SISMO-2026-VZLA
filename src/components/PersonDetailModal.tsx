@@ -56,7 +56,7 @@ export function PersonDetailModal({ person, isOpen, onClose }: PersonDetailModal
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="fixed inset-0 bg-black/50 transition-opacity" onClick={onClose} />
-      <div className="relative bg-white rounded-xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
+      <div className="relative bg-white shadow-2xl w-full max-h-screen overflow-y-auto sm:rounded-xl sm:max-w-lg sm:max-h-[90vh] sm:m-4">
         <div className="sticky top-0 bg-white border-b px-6 py-4 flex items-center justify-between rounded-t-xl">
           <h2 className="text-lg font-semibold text-gray-900">{person.nombre} {person.apellido}</h2>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600 p-1" aria-label="Cerrar">
