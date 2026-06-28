@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { Layout } from '@/components/Layout'
+import { ThemeProvider } from 'next-themes'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -19,9 +20,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es" className={inter.className}>
-      <body className="bg-gray-50 text-gray-900 antialiased">
-        <Layout>{children}</Layout>
+    <html lang="es" className={inter.className} suppressHydrationWarning>
+      <body className="bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 antialiased">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Layout>{children}</Layout>
+        </ThemeProvider>
       </body>
     </html>
   )

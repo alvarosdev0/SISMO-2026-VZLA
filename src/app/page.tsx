@@ -38,7 +38,7 @@ export default function Home() {
     return (
       <div className="flex flex-col items-center justify-center py-20">
         <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
-        <p className="mt-4 text-gray-500">Cargando datos...</p>
+        <p className="mt-4 text-gray-500 dark:text-gray-400">Cargando datos...</p>
       </div>
     )
   }
@@ -47,7 +47,7 @@ export default function Home() {
     return (
       <div className="text-center py-20">
         <p className="text-red-600 font-medium">Error al cargar los datos</p>
-        <p className="text-gray-500 text-sm mt-1">{error}</p>
+        <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">{error}</p>
         <button
           onClick={() => window.location.reload()}
           className="mt-4 text-blue-600 hover:text-blue-800 text-sm font-medium"

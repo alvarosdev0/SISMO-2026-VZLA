@@ -36,6 +36,25 @@ const DETAIL_FIELDS: (keyof Person)[] = [
   'familiar', 'fuente', 'comentarios',
 ]
 
+const HOSPITAL_MAP: Record<string, string> = {
+  'hospital vargas de caracas': 'Hospital Vargas de Caracas, Venezuela',
+  'hospital perez carreño': 'Hospital Pérez Carreño, Caracas, Venezuela',
+  'hospital universitario de caracas': 'Hospital Universitario de Caracas, Venezuela',
+  'hospital general dr. domingo luciani': 'Hospital Domingo Luciani, Caracas, Venezuela',
+  'clinica el avila': 'Clínica El Ávila, Caracas, Venezuela',
+  'hospital ciudad caribia': 'Hospital Ciudad Caribia, Caracas, Venezuela',
+  'h. periferico catia': 'Hospital Periférico Catia, Caracas, Venezuela',
+  'hospital de catia': 'Hospital de Catia, Caracas, Venezuela',
+}
+
+function getHospitalAddress(hospital: string): string | null {
+  const key = hospital.toLowerCase().trim()
+  for (const [pattern, address] of Object.entries(HOSPITAL_MAP)) {
+    if (key.includes(pattern)) return address
+  }
+  return null
+}
+
 export function PersonDetailModal({ person, isOpen, onClose }: PersonDetailModalProps) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -56,10 +75,10 @@ export function PersonDetailModal({ person, isOpen, onClose }: PersonDetailModal
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="fixed inset-0 bg-black/50 transition-opacity" onClick={onClose} />
-      <div className="relative bg-white shadow-2xl w-full max-h-screen overflow-y-auto sm:rounded-xl sm:max-w-lg sm:max-h-[90vh] sm:m-4">
-        <div className="sticky top-0 bg-white border-b px-6 py-4 flex items-center justify-between rounded-t-xl">
-          <h2 className="text-lg font-semibold text-gray-900">{person.nombre} {person.apellido}</h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 p-1" aria-label="Cerrar">
+      <div className="relative bg-white dark:bg-gray-900 shadow-2xl w-full max-h-screen overflow-y-auto sm:rounded-xl sm:max-w-lg sm:max-h-[90vh] sm:m-4">
+        <div className="sticky top-0 bg-white dark:bg-gray-900 border-b dark:border-gray-700 px-6 py-4 flex items-center justify-between rounded-t-xl">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{person.nombre} {person.apellido}</h2>
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1" aria-label="Cerrar">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -72,8 +91,8 @@ export function PersonDetailModal({ person, isOpen, onClose }: PersonDetailModal
             if (!value) return null
             return (
               <div key={field}>
-                <dt className="text-xs font-medium text-gray-500 uppercase tracking-wide">{LABELS[field]}</dt>
-                <dd className="mt-0.5 text-sm text-gray-900">
+                <dt className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">{LABELS[field]}</dt>
+                <dd className="mt-0.5 text-sm text-gray-900 dark:text-gray-100">
                   {field === 'sexo'
                     ? value === 'M' ? 'Masculino' : value === 'F' ? 'Femenino' : value
                     : field === 'menor'
@@ -85,9 +104,54 @@ export function PersonDetailModal({ person, isOpen, onClose }: PersonDetailModal
           })}
         </div>
 
-        <div className="border-t px-6 py-4">
+        <div className="border-t dark:border-gray-700 px-6 py-4 flex flex-col gap-3">
+          {(() => {
+            const address = person.hospital ? getHospitalAddress(person.hospital) : null
+            if (address) {
+              return (
+                <a
+                  href={`https://www.google.com/maps/search/${encodeURIComponent(address)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700 font-medium"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  Ver hospital en Google Maps
+                </a>
+              )
+            }
+            if (person.hospital) {
+              return (
+                <p className="inline-flex items-center gap-2 text-sm text-gray-400">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  No fue posible ubicar el centro en el mapa
+                </p>
+              )
+            }
+            return null
+          })()}
           <a
-            href={`https://wa.me/?text=${encodeURIComponent(`Estoy buscando a ${person.nombre} ${person.apellido} - ${person.hospital || ''}`)}`}
+            href={`https://wa.me/?text=${encodeURIComponent([
+              `*Búsqueda: ${person.nombre} ${person.apellido}*`,
+              person.cedula ? `Cédula: ${person.cedula}` : '',
+              person.edad ? `Edad: ${person.edad} años` : '',
+              person.sexo ? `Sexo: ${person.sexo === 'M' ? 'Masculino' : person.sexo === 'F' ? 'Femenino' : person.sexo}` : '',
+              person.hospital ? `Hospital: ${person.hospital}` : '',
+              person.area ? `Área: ${person.area}` : '',
+              person.pisoCama ? `Piso/Cama: ${person.pisoCama}` : '',
+              person.estado ? `Estado: ${person.estado}` : '',
+              person.procedencia ? `Procedencia: ${person.procedencia}` : '',
+              person.familiar ? `Familiar: ${person.familiar}` : '',
+              '',
+              'Buscador de Personas — Terremoto Venezuela 2026',
+              '🔗 https://buscador-terremoto-venezuela.vercel.app',
+            ].filter(Boolean).join('\n'))}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-sm text-green-600 hover:text-green-700 font-medium"

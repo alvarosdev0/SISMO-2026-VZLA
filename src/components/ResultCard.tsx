@@ -20,28 +20,28 @@ export function ResultCard({ person, onSelect }: ResultCardProps) {
   return (
     <button
       onClick={() => onSelect(person)}
-      className={`w-full text-left bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow focus:outline-none focus:ring-2 focus:ring-blue-500 ${estadoColor(person.estado)}`}
+      className={`w-full text-left bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-800 hover:shadow-md dark:hover:shadow-gray-900/50 transition-shadow focus:outline-none focus:ring-2 focus:ring-blue-500 ${estadoColor(person.estado)}`}
     >
       <div className="p-4">
         <div className="flex justify-between items-start">
           <div>
-            <h3 className="font-semibold text-gray-900">
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100">
               {person.nombre} {person.apellido}
             </h3>
             {person.edad && (
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-gray-500 dark:text-gray-400">
                 {person.edad} años {person.sexo === 'M' ? '· Hombre' : person.sexo === 'F' ? '· Mujer' : ''}
               </p>
             )}
           </div>
           {person.menor === 'S' && (
-            <span className="text-xs bg-orange-100 text-orange-800 px-2 py-0.5 rounded-full">
+            <span className="text-xs bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 px-2 py-0.5 rounded-full">
               Menor
             </span>
           )}
         </div>
 
-        <div className="mt-2 space-y-1 text-sm text-gray-600">
+        <div className="mt-2 space-y-1 text-sm text-gray-600 dark:text-gray-400">
           {person.hospital && (
             <p className="flex items-center gap-1">
               <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -52,7 +52,7 @@ export function ResultCard({ person, onSelect }: ResultCardProps) {
           )}
           {person.area && <p>{person.area} {person.pisoCama ? `· ${person.pisoCama}` : ''}</p>}
           {person.estado && (
-            <p className="font-medium text-gray-800">Estado: {person.estado}</p>
+            <p className="font-medium text-gray-800 dark:text-gray-200">Estado: {person.estado}</p>
           )}
         </div>
       </div>
