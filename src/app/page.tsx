@@ -8,6 +8,7 @@ import { SearchBar } from '@/components/SearchBar'
 import { FilterPanel } from '@/components/FilterPanel'
 import { ResultList } from '@/components/ResultList'
 import { PersonDetailModal } from '@/components/PersonDetailModal'
+import { LandingHero } from '@/components/LandingHero'
 
 export default function Home() {
   const {
@@ -62,6 +63,7 @@ export default function Home() {
 
   return (
     <div>
+      <LandingHero />
       <StatsBar total={people.length} filtered={filtered.length} updatedAt={updatedAt} isFallback={isFallback} />
       {isFallback && (
         <div className="bg-yellow-50 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-700 rounded-lg p-3 mb-4 text-sm text-yellow-800 dark:text-yellow-200 flex items-center gap-2">

@@ -14,9 +14,6 @@ export function Layout({ children }: { children: ReactNode }) {
             </svg>
             <div className="flex-1">
               <h1 className="text-xl font-bold leading-tight">Buscador de Personas Sismo VZLA 2026</h1>
-              <a href="https://drive.google.com/drive/folders/1o36ifaRz45kAs5rKzci49aD0mP5JB_YI" target="_blank" rel="noopener noreferrer" className="text-blue-200 hover:text-white text-xs underline">
-                Fuente oficial en Google Drive
-              </a>
             </div>
             <ThemeToggle />
           </div>
