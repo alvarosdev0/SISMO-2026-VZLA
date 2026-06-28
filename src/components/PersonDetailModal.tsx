@@ -100,7 +100,7 @@ export function PersonDetailModal({ person, isOpen, onClose }: PersonDetailModal
               person.familiar ? `Familiar: ${person.familiar}` : '',
               '',
               'Buscador de Personas Sismo VZLA 2026',
-              '🔗 https://sismo-2026-vzla.vercel.app',
+              'https://sismo-2026-vzla.vercel.app',
             ].filter(Boolean).join('\n'))}`}
             target="_blank"
             rel="noopener noreferrer"
