@@ -14,6 +14,7 @@ interface UseSheetDataReturn {
   uniqueHospitals: string[]
   uniqueProcedencias: string[]
   uniqueEstados: string[]
+  updatedAt: string | null
 }
 
 const defaultFilters: Filters = {
@@ -30,6 +31,7 @@ export function useSheetData(): UseSheetDataReturn {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [filters, setFilters] = useState<Filters>(defaultFilters)
+  const [updatedAt, setUpdatedAt] = useState<string | null>(null)
 
   useEffect(() => {
     let cancelled = false
@@ -39,6 +41,7 @@ export function useSheetData(): UseSheetDataReturn {
       .then((res) => {
         if (!cancelled) {
           setPeople(res.data)
+          setUpdatedAt(res.updatedAt ?? null)
           setLoading(false)
         }
       })
@@ -98,5 +101,6 @@ export function useSheetData(): UseSheetDataReturn {
     uniqueHospitals,
     uniqueProcedencias,
     uniqueEstados,
+    updatedAt,
   }
 }

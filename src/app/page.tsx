@@ -20,6 +20,7 @@ export default function Home() {
     uniqueHospitals,
     uniqueProcedencias,
     uniqueEstados,
+    updatedAt,
   } = useSheetData()
 
   const [selectedPerson, setSelectedPerson] = useState<Person | null>(null)
@@ -60,7 +61,7 @@ export default function Home() {
 
   return (
     <div>
-      <StatsBar total={people.length} filtered={filtered.length} />
+      <StatsBar total={people.length} filtered={filtered.length} updatedAt={updatedAt} />
       <SearchBar filters={filters} setFilters={setFilters} />
       <FilterPanel
         filters={filters}

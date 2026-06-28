@@ -30,7 +30,7 @@ export async function GET() {
   if (rows.length < 2) {
     return NextResponse.json({
       data: [],
-      updatedAt: new Date().toISOString(),
+      updatedAt: process.env.SHEET_LAST_UPDATED || null,
     } satisfies SheetResponse)
   }
 
@@ -47,7 +47,7 @@ export async function GET() {
 
   return NextResponse.json({
     data: people,
-    updatedAt: new Date().toISOString(),
+    updatedAt: process.env.SHEET_LAST_UPDATED || null,
   } satisfies SheetResponse, {
     headers: {
       'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=60',

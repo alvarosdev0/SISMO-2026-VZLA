@@ -29,7 +29,7 @@ export interface Filters {
 
 export interface SheetResponse {
   data: Person[]
-  updatedAt: string
+  updatedAt?: string | null
 }
 
 export const COLUMN_MAP: Record<number, keyof Person> = {
