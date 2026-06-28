@@ -71,9 +71,10 @@ export function useSheetData(): UseSheetDataReturn {
     return people.filter((person) => {
       const fullName = `${person.nombre} ${person.apellido}`.toLowerCase()
       const reverseName = `${person.apellido} ${person.nombre}`.toLowerCase()
+      const cedula = person.cedula.toLowerCase()
       const query = filters.query.toLowerCase()
 
-      if (query && !fullName.includes(query) && !reverseName.includes(query)) {
+      if (query && !fullName.includes(query) && !reverseName.includes(query) && !cedula.includes(query)) {
         return false
       }
       if (filters.hospital && person.hospital !== filters.hospital) return false

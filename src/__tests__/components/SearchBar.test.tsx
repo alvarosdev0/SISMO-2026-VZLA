@@ -15,7 +15,7 @@ describe('SearchBar', () => {
     render(
       <SearchBar filters={defaultFilters} setFilters={jest.fn()} />
     )
-    expect(screen.getByPlaceholderText('Buscar por nombre o apellido...')).toBeInTheDocument()
+    expect(screen.getByPlaceholderText('Buscar por nombre, apellido o cédula...')).toBeInTheDocument()
   })
 
   it('should call setFilters when typing (debounced)', () => {
@@ -25,7 +25,7 @@ describe('SearchBar', () => {
       <SearchBar filters={defaultFilters} setFilters={setFilters} />
     )
 
-    const input = screen.getByPlaceholderText('Buscar por nombre o apellido...')
+    const input = screen.getByPlaceholderText('Buscar por nombre, apellido o cédula...')
     fireEvent.change(input, { target: { value: 'MARÍA' } })
     jest.advanceTimersByTime(300)
 

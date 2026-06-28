@@ -56,7 +56,7 @@ export function SearchBar({ filters, setFilters }: SearchBarProps) {
         type="text"
         value={localQuery}
         onChange={handleChange}
-        placeholder="Buscar por nombre o apellido..."
+        placeholder="Buscar por nombre, apellido o cédula..."
         className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base"
       />
       {filters.query && (
