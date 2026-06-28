@@ -30,6 +30,7 @@ export interface Filters {
 export interface SheetResponse {
   data: Person[]
   updatedAt?: string | null
+  fallback?: boolean
 }
 
 export const COLUMN_MAP: Record<number, keyof Person> = {

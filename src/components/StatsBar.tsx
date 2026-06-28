@@ -2,9 +2,10 @@ interface StatsBarProps {
   total: number
   filtered: number
   updatedAt: string | null
+  isFallback?: boolean
 }
 
-export function StatsBar({ total, filtered, updatedAt }: StatsBarProps) {
+export function StatsBar({ total, filtered, updatedAt, isFallback }: StatsBarProps) {
   const formatted = updatedAt
     ? new Date(updatedAt).toLocaleString('es-ES', {
         day: '2-digit',
@@ -31,7 +32,7 @@ export function StatsBar({ total, filtered, updatedAt }: StatsBarProps) {
       </div>
       {formatted && (
         <p className="mt-2 text-xs text-gray-400 dark:text-gray-500">
-          Última actualización de los datos: {formatted}
+          {isFallback ? 'Última actualización de los datos de respaldo:' : 'Última actualización de los datos:'} {formatted}
         </p>
       )}
     </div>

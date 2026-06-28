@@ -15,6 +15,7 @@ interface UseSheetDataReturn {
   uniqueProcedencias: string[]
   uniqueEstados: string[]
   updatedAt: string | null
+  isFallback: boolean
 }
 
 const defaultFilters: Filters = {
@@ -32,6 +33,7 @@ export function useSheetData(): UseSheetDataReturn {
   const [error, setError] = useState<string | null>(null)
   const [filters, setFilters] = useState<Filters>(defaultFilters)
   const [updatedAt, setUpdatedAt] = useState<string | null>(null)
+  const [isFallback, setIsFallback] = useState(false)
 
   useEffect(() => {
     let cancelled = false
@@ -42,6 +44,7 @@ export function useSheetData(): UseSheetDataReturn {
         if (!cancelled) {
           setPeople(res.data)
           setUpdatedAt(res.updatedAt ?? null)
+          setIsFallback(!!res.fallback)
           setLoading(false)
         }
       })
@@ -102,5 +105,6 @@ export function useSheetData(): UseSheetDataReturn {
     uniqueProcedencias,
     uniqueEstados,
     updatedAt,
+    isFallback,
   }
 }
