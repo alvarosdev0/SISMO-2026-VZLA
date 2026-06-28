@@ -1,0 +1,29 @@
+name: Update fallback data
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm run update-fallback:ci
+        env:
+          GOOGLE_SHEETS_API_KEY: ${{ secrets.GOOGLE_SHEETS_API_KEY }}
+          SHEET_ID: ${{ secrets.SHEET_ID }}
+          SHEET_RANGE: ${{ secrets.SHEET_RANGE }}
+      - run: |
+          git diff --exit-code src/data/fallback.json || (
+            git config user.name 'bot-fallback'
+            git config user.email 'bot-fallback@users.noreply.github.com'
+            git add src/data/fallback.json
+            git commit -m 'auto: update fallback data'
+            git push
+          )

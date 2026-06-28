@@ -99,7 +99,7 @@ export function PersonDetailModal({ person, isOpen, onClose }: PersonDetailModal
               person.procedencia ? `Procedencia: ${person.procedencia}` : '',
               person.familiar ? `Familiar: ${person.familiar}` : '',
               '',
-              'Buscador de Personas — Terremoto Venezuela 2026',
+              'Buscador de Personas Sismo VZLA 2026',
               '🔗 https://buscador-terremoto-venezuela.vercel.app',
             ].filter(Boolean).join('\n'))}`}
             target="_blank"

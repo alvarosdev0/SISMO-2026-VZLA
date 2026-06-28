@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "update-fallback": "node --env-file=.env.local scripts/update-fallback.mjs"
+    "update-fallback": "node --env-file=.env.local scripts/update-fallback.mjs",
+    "update-fallback:ci": "node scripts/update-fallback.mjs"
   },
   "dependencies": {
     "next": "16.2.9",

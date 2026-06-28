@@ -13,8 +13,10 @@ export function Layout({ children }: { children: ReactNode }) {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
             <div className="flex-1">
-              <h1 className="text-xl font-bold leading-tight">Buscador de Personas</h1>
-              <p className="text-blue-100 dark:text-blue-200 text-sm">Terremoto Venezuela — 24 de junio de 2026</p>
+              <h1 className="text-xl font-bold leading-tight">Buscador de Personas Sismo VZLA 2026</h1>
+              <a href="https://drive.google.com/drive/folders/1o36ifaRz45kAs5rKzci49aD0mP5JB_YI" target="_blank" rel="noopener noreferrer" className="text-blue-200 hover:text-white text-xs underline">
+                Fuente oficial en Google Drive
+              </a>
             </div>
             <ThemeToggle />
           </div>
@@ -25,11 +27,6 @@ export function Layout({ children }: { children: ReactNode }) {
       </main>
       <footer className="bg-gray-100 dark:bg-gray-900 border-t dark:border-gray-800 py-4 text-center text-sm text-gray-500 dark:text-gray-400">
         <p>Datos recopilados de hospitales y centros de atención. Actualización constante.</p>
-        <p className="mt-1">
-          <a href="https://drive.google.com/drive/folders/1o36ifaRz45kAs5rKzci49aD0mP5JB_YI" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">
-            Fuente original en Google Drive
-          </a>
-        </p>
       </footer>
     </div>
   )

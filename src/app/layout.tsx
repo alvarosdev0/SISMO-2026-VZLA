@@ -10,7 +10,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Buscador de Personas — Terremoto Venezuela 2026',
+  title: 'Buscador de Personas Sismo VZLA 2026',
   description: 'Busca información de personas afectadas por el terremoto del 24 de junio de 2026 en Venezuela',
 }
 
