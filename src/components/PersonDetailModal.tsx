@@ -36,25 +36,6 @@ const DETAIL_FIELDS: (keyof Person)[] = [
   'familiar', 'fuente', 'comentarios',
 ]
 
-const HOSPITAL_MAP: Record<string, string> = {
-  'hospital vargas de caracas': 'Hospital Vargas de Caracas, Venezuela',
-  'hospital perez carreño': 'Hospital Pérez Carreño, Caracas, Venezuela',
-  'hospital universitario de caracas': 'Hospital Universitario de Caracas, Venezuela',
-  'hospital general dr. domingo luciani': 'Hospital Domingo Luciani, Caracas, Venezuela',
-  'clinica el avila': 'Clínica El Ávila, Caracas, Venezuela',
-  'hospital ciudad caribia': 'Hospital Ciudad Caribia, Caracas, Venezuela',
-  'h. periferico catia': 'Hospital Periférico Catia, Caracas, Venezuela',
-  'hospital de catia': 'Hospital de Catia, Caracas, Venezuela',
-}
-
-function getHospitalAddress(hospital: string): string | null {
-  const key = hospital.toLowerCase().trim()
-  for (const [pattern, address] of Object.entries(HOSPITAL_MAP)) {
-    if (key.includes(pattern)) return address
-  }
-  return null
-}
-
 export function PersonDetailModal({ person, isOpen, onClose }: PersonDetailModalProps) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -104,38 +85,7 @@ export function PersonDetailModal({ person, isOpen, onClose }: PersonDetailModal
           })}
         </div>
 
-        <div className="border-t dark:border-gray-700 px-6 py-4 flex flex-col gap-3">
-          {(() => {
-            const address = person.hospital ? getHospitalAddress(person.hospital) : null
-            if (address) {
-              return (
-                <a
-                  href={`https://www.google.com/maps/search/${encodeURIComponent(address)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700 font-medium"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  Ver hospital en Google Maps
-                </a>
-              )
-            }
-            if (person.hospital) {
-              return (
-                <p className="inline-flex items-center gap-2 text-sm text-gray-400">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  No fue posible ubicar el centro en el mapa
-                </p>
-              )
-            }
-            return null
-          })()}
+        <div className="border-t dark:border-gray-700 px-6 py-4">
           <a
             href={`https://wa.me/?text=${encodeURIComponent([
               `*Búsqueda: ${person.nombre} ${person.apellido}*`,
